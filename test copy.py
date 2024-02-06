@@ -94,9 +94,10 @@ while True:
                         a = cur.fetchall()
                         i = ' / '.join(':'.join(map(str, i)) for i in a)
                         print(i)
-                
+                        break
                     else:
                         print("数値で入力してください。")
+                        break
                 exit = input("販売機編集を続ける場合は「はい」を入力/ 続けない場合は「ENTER」等入力")
                 if exit != 'はい':
                     break
