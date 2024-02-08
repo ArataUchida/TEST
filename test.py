@@ -120,5 +120,6 @@ while True:
         print('該当する番号ではありません。もう一度入力して下さい。')
     exit = input("販売機編集を続ける場合は「はい」を入力/ 続けない場合は「ENTER」等入力:")
     if exit != 'はい':
+        print('1. 自動販売機飲み物購入機能 / 2.販売機編集')
         break
 conn.close()
