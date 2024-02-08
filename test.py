@@ -40,13 +40,10 @@ while True:
                             break                  
                     else:
                         print("数値で入力してください。")
-                    break
+                        break
                 break
         else:
             print('商品が存在しません。もう一度入力して下さい。')
-        exit = input("販売機編集を続ける場合は「はい」を入力/ 続けない場合は「ENTER」等入力")
-        if exit != "はい":
-            break
     elif int(select) == 2:
         while True:
             select_meny = input("1 自動販売機飲み物個数追加機能 /2 自動販売機飲み物種類追加機能 /3 自動販売機飲み物種類削除機能")
@@ -71,9 +68,6 @@ while True:
                         break
                 else:
                     print('商品が存在しません。')
-                exit = input("販売機編集を続ける場合は「はい」を入力/ 続けない場合は「ENTER」等入力")
-                if exit != 'はい':
-                    break
             elif int(select_meny) == 2:
                 cur.execute('SELECT * FROM drink_test')
                 a = cur.fetchall()
@@ -86,20 +80,21 @@ while True:
                         break
                 else:
                     drink_price = input("追加する飲み物の値段設定をを入力してください：")
-                    drink_stock = input("追加する飲み物の在庫数をを入力してください：")
-                    if drink_price.isnumeric() and drink_stock.isnumeric():
-                        cur.execute('INSERT INTO drink_test(name, price, stock) values(?, ?, ?)', (name, int(drink_price), int(drink_stock),))
-                        conn.commit()
-                        cur.execute('SELECT * FROM drink_test')
-                        a = cur.fetchall()
-                        i = ' / '.join(':'.join(map(str, i)) for i in a)
-                        print(i)
-                
+                    if drink_price.isnumeric():
+                        drink_stock = input("追加する飲み物の在庫数をを入力してください：")
+                        if drink_stock.isnumeric():
+                            cur.execute('INSERT INTO drink_test(name, price, stock) values(?, ?, ?)', (name, int(drink_price), int(drink_stock),))
+                            conn.commit()
+                            cur.execute('SELECT * FROM drink_test')
+                            a = cur.fetchall()
+                            i = ' / '.join(':'.join(map(str, i)) for i in a)
+                            print(i)
+                            break
+                        else:
+                            print("数値で入力してください。")
+                            
                     else:
                         print("数値で入力してください。")
-                exit = input("販売機編集を続ける場合は「はい」を入力/ 続けない場合は「ENTER」等入力")
-                if exit != 'はい':
-                    break
             elif int(select_meny) == 3:
                 cur.execute('SELECT * FROM drink_test')
                 a = cur.fetchall()
@@ -117,13 +112,13 @@ while True:
                         break
                 else:
                     print('商品が存在しません。')
-                exit = input("販売機編集を続ける場合は「はい」を入力/ 続けない場合は「ENTER」等入力")
-                if exit != 'はい':
-                    break
+                
             else:
                 print("該当番号がありません。もう一度入力して下さい：")
-        break
+            break
     else:
         print('該当する番号ではありません。もう一度入力して下さい。')
-
+    exit = input("販売機編集を続ける場合は「はい」を入力/ 続けない場合は「ENTER」等入力:")
+    if exit != 'はい':
+        break
 conn.close()
