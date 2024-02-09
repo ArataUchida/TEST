@@ -20,7 +20,7 @@ while True:
     if int(select) == 1:
         cur.execute('SELECT name, price FROM drink_test')
         a = cur.fetchall()
-        i = ' / '.join(':'.join(map(str, i)) for i in a)
+        i = ' / '.join(' : '.join(map(str, i)) for i in a)
         print(i) 
         select_drink = input("商品を選んでください:")
         cur.execute("update drink_test set stock = stock - 1 where name = (?)",(select_drink,))
@@ -50,7 +50,7 @@ while True:
             if int(select_meny) == 1:
                 cur.execute('SELECT name, stock FROM drink_test')
                 a = cur.fetchall()
-                i = ' / '.join(':'.join(map(str, i)) for i in a)
+                i = ' / '.join(' : '.join(map(str, i)) for i in a)
                 print(i)
                 name = input("名前を入力して下さい：")
                 for i in a:
@@ -61,7 +61,8 @@ while True:
                             conn.commit()
                             cur.execute('SELECT name, stock FROM drink_test')
                             a = cur.fetchall()
-                            print(a)
+                            i = ' / '.join(' : '.join(map(str, i)) for i in a)
+                            print(i)
                             break 
                         else:
                             print("数値で入力してください。")
@@ -71,7 +72,7 @@ while True:
             elif int(select_meny) == 2:
                 cur.execute('SELECT * FROM drink_test')
                 a = cur.fetchall()
-                i = ' / '.join(':'.join(map(str, i)) for i in a)
+                i = ' / '.join(' : '.join(map(str, i)) for i in a)
                 print(i)
                 name = input("追加する飲み物の名前を入力してください：")
                 for i in a:
@@ -87,7 +88,7 @@ while True:
                             conn.commit()
                             cur.execute('SELECT * FROM drink_test')
                             a = cur.fetchall()
-                            i = ' / '.join(':'.join(map(str, i)) for i in a)
+                            i = ' / '.join(' : '.join(map(str, i)) for i in a)
                             print(i)
                             break
                         else:
@@ -98,7 +99,7 @@ while True:
             elif int(select_meny) == 3:
                 cur.execute('SELECT * FROM drink_test')
                 a = cur.fetchall()
-                i = ' / '.join(':'.join(map(str, i)) for i in a)
+                i = ' / '.join(' : '.join(map(str, i)) for i in a)
                 print(i)
                 delete_name = input("削除したい名前を入力して下さい：")
                 for i in a:
@@ -107,7 +108,7 @@ while True:
                         conn.commit()
                         cur.execute('SELECT * FROM drink_test')
                         a = cur.fetchall()
-                        i = ' / '.join(':'.join(map(str, i)) for i in a)
+                        i = ' / '.join(' : '.join(map(str, i)) for i in a)
                         print(i)
                         break
                 else:
