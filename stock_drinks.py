@@ -1,8 +1,8 @@
-import sqlite3
-dbname = 'drink_TEST.db'
-conn = sqlite3.connect(dbname)
-cur = conn.cursor()
-def stock():
+"""drink_sqlよりdrink_TEST。dbを接続"""
+from drink_sql import d_sq
+cur, conn = d_sq()
+def s_d():
+    """2 自動販売機飲み物種類追加機能 """
     cur.execute('SELECT name, stock FROM drink_test')
     a = cur.fetchall()
     i = ' / '.join(f'{i[0]} 在庫:{i[1]}' for i in a)

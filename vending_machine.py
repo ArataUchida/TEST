@@ -1,8 +1,8 @@
-import sqlite3
-dbname = 'drink_TEST.db'
-conn = sqlite3.connect(dbname)
-cur = conn.cursor()
-def vending():
+"""drink_sqlよりdrink_TEST。dbを接続"""
+from drink_sql import d_sq
+cur, conn = d_sq()
+def v_m():
+    """1. 自動販売機飲み物購入機能"""
     cur.execute('SELECT name, price, stock FROM drink_test')
     a = cur.fetchall()
     i = ' / '.join(f'{i[0]} ￥{i[1]} 在庫:{i[2]}' for i in a)
@@ -13,15 +13,15 @@ def vending():
     for i in a:
         if i[0] == select_drink:
             print("{}：￥{}になります。".format(i[0],i[1]))
-            money_amount = i[1]
+            menu_amount = i[1]
             while True:
-                money = input("お金をお入れ下さい:")
-                if money.isnumeric():
-                    if  int(money_amount) > int(money):
-                        print(f"{int(money_amount) - int(money)}円足りません")
-                        money_amount = int(money_amount) - int(money)
+                menu = input("お金をお入れ下さい:")
+                if menu.isnumeric():
+                    if  int(menu_amount) > int(menu):
+                        print(f"{int(menu_amount) - int(menu)}円足りません")
+                        menu_amount = int(menu_amount) - int(menu)
                     else:
-                        print(f"{int(money) - int(money_amount)}円お釣りです。")        
+                        print(f"{int(menu) - int(menu_amount)}円お釣りです。")        
                         break                  
                 else:
                     print("数値で入力してください。")

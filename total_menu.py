@@ -1,9 +1,9 @@
-import sqlite3
-dbname = 'drink_TEST.db'
-conn = sqlite3.connect(dbname)
-cur = conn.cursor()
-def total():
-     while True:
+"""drink_sqlよりdrink_TEST。dbを接続"""
+from drink_sql import d_sq
+cur, conn = d_sq()
+def t_m():
+    """購入機能４（最初に戻る）関数"""
+    while True:
         select = input('1. 自動販売機飲み物購入機能 / 2.販売機編集 / 3.終了')
         if int(select) == 1:
             cur.execute('SELECT name, price, stock FROM drink_test')
@@ -16,26 +16,25 @@ def total():
             for i in a:
                 if i[0] == select_drink:
                     print("{}：￥{}になります。".format(i[0],i[1]))
-                    money_amount = i[1]
+                    menu_amount = i[1]
                     while True:
-                        money = input("お金をお入れ下さい:")
-                        if money.isnumeric():
-                            if  int(money_amount) > int(money):
-                                print(f"{int(money_amount) - int(money)}円足りません")
-                                money_amount = int(money_amount) - int(money)
+                        menu = input("お金をお入れ下さい:")
+                        if menu.isnumeric():
+                            if  int(menu_amount) > int(menu):
+                                print(f"{int(menu_amount) - int(menu)}円足りません")
+                                menu_amount = int(menu_amount) - int(menu)
                             else:
-                                print(f"{int(money) - int(money_amount)}円お釣りです。")        
+                                print(f"{int(menu) - int(menu_amount)}円お釣りです。")        
                                 break                  
                         else:
-                            print("数値で入力してください。")
-                            
+                            print("数値で入力してください。")                         
                     break
             else:
                 print('商品が存在しません。もう一度入力して下さい。')
         elif int(select) == 2:
             while True:
-                select_meny = input("1 自動販売機飲み物個数追加機能 /2 自動販売機飲み物種類追加機能 /3 自動販売機飲み物種類削除機能 / 4 最初に戻る")
-                if int(select_meny) == 1:
+                select_menu = input("1 自動販売機飲み物個数追加機能 /2 自動販売機飲み物種類追加機能 /3 自動販売機飲み物種類削除機能 / 4 最初に戻る")
+                if int(select_menu) == 1:
                     cur.execute('SELECT name, stock FROM drink_test')
                     a = cur.fetchall()
                     i = ' / '.join(f'{i[0]} 在庫:{i[1]}' for i in a)
@@ -57,7 +56,7 @@ def total():
                             break
                     else:
                         print('商品が存在しません。')
-                elif int(select_meny) == 2:
+                elif int(select_menu) == 2:
                     cur.execute('SELECT * FROM drink_test')
                     a = cur.fetchall()
                     i = ' / '.join(f'{i[0]} ￥{i[1]} 在庫:{i[2]}' for i in a)
@@ -65,7 +64,7 @@ def total():
                     name = input("追加する飲み物の名前を入力してください：").strip()
                     if name:
                         for i in a:
-                            if i[0] == name :
+                            if i[0] == name:
                                 print('既に商品が存在します。')
                                 break
                         else:
@@ -87,7 +86,7 @@ def total():
                                 print("数値で入力してください。")
                     else:
                         print('もう一度入力をお願いします。')
-                elif int(select_meny) == 3:
+                elif int(select_menu) == 3:
                     cur.execute('SELECT * FROM drink_test')
                     a = cur.fetchall()
                     i = ' / '.join(f'{i[0]} ￥{i[1]} 在庫:{i[2]}' for i in a)
@@ -105,18 +104,14 @@ def total():
                     else:
                         print('商品が存在しません。')
 
-                elif int(select_meny) == 4:
-                    total()
-                    
-
+                elif int(select_menu) == 4:
+                    t_m()
                 else:
                     print("該当番号がありません。もう一度入力して下さい：")
-                break
-    
+                break 
         elif int(select) == 3:
             print('プログラム終了')
-            exit()
-        
+            exit()    
         else:
             print('該当する番号ではありません。もう一度入力して下さい。')
             break

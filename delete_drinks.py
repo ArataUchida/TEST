@@ -1,8 +1,8 @@
-import sqlite3
-dbname = 'drink_TEST.db'
-conn = sqlite3.connect(dbname)
-cur = conn.cursor()
-def delete():
+"""drink_sqlよりdrink_TEST。dbを接続"""
+from drink_sql import d_sq
+cur, conn = d_sq()
+def d_d():
+    """3 自動販売機飲み物種類削除機能 """
     cur.execute('SELECT * FROM drink_test')
     a = cur.fetchall()
     i = ' / '.join(f'{i[0]} ￥{i[1]} 在庫:{i[2]}' for i in a)
@@ -19,5 +19,3 @@ def delete():
             break
     else:
         print('商品が存在しません。')
-
-            
